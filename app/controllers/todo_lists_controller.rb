@@ -54,10 +54,12 @@ class TodoListsController < ApplicationController
   # DELETE /todo_lists/1
   # DELETE /todo_lists/1.json
   def destroy
+    @todo_list = TodoList.find(params[:id])
     @todo_list.destroy
     respond_to do |format|
       format.html { redirect_to todo_lists_url, notice: 'Todo list was successfully destroyed.' }
       format.json { head :no_content }
+      # redirect_to todo_lists_url
     end
   end
 
@@ -65,6 +67,7 @@ class TodoListsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_todo_list
       @todo_list = TodoList.find(params[:id])
+      # @todo_list = TodoList.find(params[:todo_list_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

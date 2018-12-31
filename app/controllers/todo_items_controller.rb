@@ -2,6 +2,14 @@ class TodoItemsController < ApplicationController
     before_action :set_todo_list
     before_action :set_todo_item, except: [:create]
 
+def show
+end
+
+def edit
+    # @todo_list = TodoList.find(params[:id])
+    @todo_item = @todo_list.todo_items.find(params[:id])
+end
+    
 def create
     @todo_item = @todo_list.todo_items.create(todo_item_params)
     redirect_to @todo_list
@@ -20,6 +28,22 @@ end
 def complete
     @todo_item.update_attribute(:completed_at, Time.now)
     redirect_to @todo_list, notice: "Todo item completed"
+end
+
+def update 
+    # @todo_list = TodoList.find(params[:id])
+    @todo_item = @todo_list.todo_items.find(params[:id])
+
+    if @todo_item.update(todo_item_params)
+        # format.html { redirect_to @todo_list, notice: 'Todo item was successfully updated.' }
+        # format.html { redirect_to todo_lists_url, notice: 'Todo list was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @todo_item }
+        redirect_to @todo_list
+
+    else
+        format.html { render :edit_item }
+        format.json { render json: @todo_list.errors, status: :unprocessable_entity }
+    end
 end
 
 private
