@@ -3,8 +3,13 @@ class TodoListsController < ApplicationController
 
   # GET /todo_lists
   # GET /todo_lists.json
+  #if there is a tag the instance of todo list are the ones that are tagged, else it is all todo lists
   def index
-    @todo_lists = TodoList.all
+    @todo_list = if params[:tag]
+      TodoList.tagged_with(params[:tag])
+    else 
+      TodoList.all
+    end
   end
 
   # GET /todo_lists/1
@@ -72,6 +77,6 @@ class TodoListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_list_params
-      params.require(:todo_list).permit(:title, :description)
+      params.require(:todo_list).permit(:title, :description, :tag_list)
     end
 end

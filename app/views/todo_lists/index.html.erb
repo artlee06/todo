@@ -2,6 +2,13 @@
 
 <h1>Todo Lists</h1>
 
+<div id="tag_cloud">
+  <% tag_cloud TodoList.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+  <%= link_to "Show All", todo_lists_path %>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -12,13 +19,14 @@
   </thead>
 
   <tbody>
-    <% @todo_lists.each do |todo_list| %>
+    <% @todo_list.each do |todo_list| %>
       <tr>
         <td><%= todo_list.title %></td>
         <td><%= todo_list.description %></td>
         <td><%= link_to 'Show', todo_list %></td>
         <td><%= link_to 'Edit', edit_todo_list_path(todo_list) %></td>
         <td><%= link_to 'Destroy', todo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td> Tags: <%= raw todo_list.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></td>
       </tr>
     <% end %>
   </tbody>

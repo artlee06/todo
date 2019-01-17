@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
   end
   # nested routes to capture relationship that todo items are children of todo lists 
-root "todo_lists#index"
+  get 'tags/:tag', to: 'todo_lists#index', as: :tag
+
+
+  root "todo_lists#index"
 #ensure the homepage is todo list index view
 end
