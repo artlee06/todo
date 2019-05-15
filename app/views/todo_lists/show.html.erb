@@ -1,10 +1,14 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <strong>Title:</strong>
+<p id = "todo_list_title">
+  <%# <strong>Title:</strong> %>
   <%= @todo_list.title %>
 </p>
-<p>
-  <strong>Description:</strong>
+<div id = "EditBack">
+<%= link_to fa_icon('edit', text: 'Edit'), edit_todo_list_path(@todo_list), class: 'EditButton' %> |
+<%= link_to 'Back', todo_lists_path, class: 'BackButton' %>
+</div>
+<p id = "todo_list_description">
+  <%# <strong>Description:</strong> %>
   <%= @todo_list.description %>
 </p>
 <div id="todo_items_wrapper">
@@ -13,5 +17,3 @@
   <%= render "todo_items/form" %>
  </div>
 </div>
-<%= link_to 'Edit', edit_todo_list_path(@todo_list) %> |
-<%= link_to 'Back', todo_lists_path %>
